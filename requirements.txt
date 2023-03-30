@@ -1,0 +1,13 @@
+celery==5.2.7
+Django==4.1.7
+django-celery-beat==2.4.0
+django-timezone-field==5.0
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.2.2
+drf-yasg==1.21.5
+psycopg2-binary==2.9.5
+PyJWT==2.6.0
+python-crontab==2.7.1
+python-dotenv==1.0.0
+pytz==2022.7.1
+redis==4.5.1

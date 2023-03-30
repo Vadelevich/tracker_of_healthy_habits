@@ -6,6 +6,7 @@ from tracker.validators import ValidateTimeToComplete, ValidateAward, ValidateAw
 
 
 class HabitSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Habit

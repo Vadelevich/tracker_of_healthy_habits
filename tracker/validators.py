@@ -16,14 +16,12 @@ class Validate_Pleasant:
     def __call__(self, value, serializer_field):
 
         hobit_pk = serializer_field.initial_data.get('connection')
-        pleasant_connect = Habit.objects.filter(pk=hobit_pk).first()
-        if pleasant_connect:
-            if value.get('pleasant'):
-                if pleasant_connect.pleasant:
-                    raise ValidationError('Нельзя связать две приятные привычки!')
-                else:
-                    return True
-            return True
+        pleasant_connect = Habit.objects.get(pk=hobit_pk)
+        if value.get('pleasant'):
+            if pleasant_connect.pleasant:
+                raise ValidationError('Нельзя связать две приятные привычки!')
+            else:
+                return True
         return True
 
 
@@ -94,20 +92,23 @@ class ValidatePleasantAwardConnection:
             if value.get('connection') is None:
                 if value.get('award') is None:
                     return True
-                else: raise ValidationError('у приятной привычки не может быть вознаграждения или связанной привычки')
+                else:
+                    raise ValidationError('у приятной привычки не может быть вознаграждения или связанной привычки')
             else:
                 raise ValidationError('у приятной привычки не может быть вознаграждения или связанной привычки')
 
 
-class  ValidateFrequency:
+class ValidateFrequency:
     """ периодичность не может быть более 7 дней, то есть привычку нельзя выполнять больше, чем раз в неделю"""
+
     def __init__(self, field):
         self.field = field
 
-    def __call__(self,value):
+    def __call__(self, value):
         if value.get('frequency'):
             if value.get('frequency') > 7:
-                raise ValidationError('периодичность не может быть более 7 дней, то есть привычку нельзя выполнять больше, чем раз в неделю')
+                raise ValidationError(
+                    'периодичность не может быть более 7 дней, то есть привычку нельзя выполнять больше, чем раз в неделю')
             else:
                 return True
         return True
